@@ -14,15 +14,18 @@ export default function Page() {
   useEffect(() => {
     if (!videoCompleted) {
       document.body.style.overflow = 'hidden';
+      document.body.style.height = '100vh';
       // Scroll to top to ensure video is visible
       window.scrollTo(0, 0);
     } else {
       document.body.style.overflow = 'auto';
+      document.body.style.height = 'auto';
     }
 
     // Cleanup on unmount
     return () => {
       document.body.style.overflow = 'auto';
+      document.body.style.height = 'auto';
     };
   }, [videoCompleted]);
   return (
@@ -50,18 +53,13 @@ export default function Page() {
             Construye una marca que inspira confianza, ordena tus finanzas diarias y vuelve predecible tu caja sin endeudarte.
           </p>
 
-          {/* Overlay de bloqueo hasta que termine el video */}
+          {/* Indicador de contenido bloqueado */}
           {!videoCompleted && (
-            <div className="fixed inset-0 bg-dark-600/95 backdrop-blur-sm z-50 flex items-center justify-center">
-              <div className="text-center text-neutral-50 max-w-md mx-4">
-                <div className="text-6xl mb-4">🔒</div>
-                <h2 className="text-2xl font-bold mb-4">Contenido Bloqueado</h2>
-                <p className="text-lg opacity-90 leading-relaxed">
-                  Completa el video para acceder al resto de la información y continuar con tu proceso de mentoría.
-                </p>
-                <div className="mt-6 text-sm opacity-75">
-                  El video se está reproduciendo arriba 👆
-                </div>
+            <div className="text-center py-8">
+              <div className="inline-flex items-center gap-3 bg-dark-600/80 text-neutral-50 px-6 py-3 rounded-full">
+                <span className="text-2xl">🔒</span>
+                <span className="font-medium">Completa el video para continuar leyendo</span>
+                <span className="text-xl">👇</span>
               </div>
             </div>
           )}
@@ -87,8 +85,18 @@ export default function Page() {
       </section>
 
       {/* Contenido bloqueado hasta completar el video */}
-      {videoCompleted && (
-        <>
+      <div className={`transition-all duration-1000 ${videoCompleted ? 'opacity-100 blur-0' : 'opacity-30 blur-sm pointer-events-none'}`}>
+        {/* Indicador visual de desbloqueo */}
+        {videoCompleted && (
+          <div className="text-center py-4 animate-fade-in">
+            <div className="inline-flex items-center gap-2 bg-accent-500 text-dark-600 px-4 py-2 rounded-full text-sm font-medium animate-bounce">
+              <span>✅</span>
+              <span>¡Contenido desbloqueado!</span>
+            </div>
+          </div>
+        )}
+
+
 
       {/* Sección Problema */}
       <section className="py-20 px-4 bg-neutral-50">
@@ -296,8 +304,7 @@ export default function Page() {
         </div>
       </section>
 
-        </>
-      )}
+      </div>
     </main>
   );
 }
