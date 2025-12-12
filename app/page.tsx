@@ -43,8 +43,8 @@ export default function Page() {
           </h1>
 
           {/* Video de YouTube */}
-          <div className="mb-8 max-w-6xl mx-auto">
-            <div className="relative w-full" style={{ paddingBottom: '50%' }}>
+          <div className="mb-8 max-w-7xl mx-auto">
+            <div className="relative w-full" style={{ paddingBottom: '45%' }}>
               <VideoPlayer videoId="B3H8Hcua8tU" onVideoComplete={handleVideoComplete} />
             </div>
           </div>
