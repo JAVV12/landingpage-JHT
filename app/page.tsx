@@ -1,3 +1,5 @@
+import VideoPlayer from './components/VideoPlayer';
+
 export default function Page() {
   return (
     <main className="min-h-screen bg-white">
@@ -16,14 +18,7 @@ export default function Page() {
           {/* Video de YouTube */}
           <div className="mb-8 max-w-4xl mx-auto">
             <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
-              <iframe
-                className="absolute top-0 left-0 w-full h-full rounded-xl shadow-2xl"
-                src="https://www.youtube.com/embed/B3H8Hcua8tU?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&loop=1&playlist=B3H8Hcua8tU"
-                title="Video de mentoría empresarial"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
+              <VideoPlayer videoId="B3H8Hcua8tU" />
             </div>
           </div>
 
