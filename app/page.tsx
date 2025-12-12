@@ -12,6 +12,21 @@ export default function Page() {
           <h1 className="text-4xl md:text-6xl font-bold text-neutral-50 mb-6 leading-tight">
             ¿Listo para liberar tu flujo de caja en 90 días con un método probado y auténtico?
           </h1>
+
+          {/* Video de YouTube */}
+          <div className="mb-8 max-w-4xl mx-auto">
+            <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+              <iframe
+                className="absolute top-0 left-0 w-full h-full rounded-xl shadow-2xl"
+                src="https://www.youtube.com/embed/B3H8Hcua8tU?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&loop=1&playlist=B3H8Hcua8tU"
+                title="Video de mentoría empresarial"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+          </div>
+
           <p className="text-xl md:text-2xl text-neutral-100 mb-8 max-w-4xl mx-auto leading-relaxed">
             Construye una marca que inspira confianza, ordena tus finanzas diarias y vuelve predecible tu caja sin endeudarte.
           </p>
