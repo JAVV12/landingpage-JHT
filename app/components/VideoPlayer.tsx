@@ -11,9 +11,10 @@ declare global {
 
 interface VideoPlayerProps {
   videoId: string;
+  onVideoComplete?: () => void;
 }
 
-export default function VideoPlayer({ videoId }: VideoPlayerProps) {
+export default function VideoPlayer({ videoId, onVideoComplete }: VideoPlayerProps) {
   const playerRef = useRef<HTMLDivElement>(null);
   const playerInstanceRef = useRef<any>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -86,6 +87,10 @@ export default function VideoPlayer({ videoId }: VideoPlayerProps) {
     } else if (event.data === window.YT.PlayerState.ENDED) {
       setIsCompleted(true);
       setProgress(100);
+      // Call completion callback
+      if (onVideoComplete) {
+        onVideoComplete();
+      }
       // Allow controls after completion
     }
   };

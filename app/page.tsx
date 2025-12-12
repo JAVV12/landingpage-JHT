@@ -1,6 +1,30 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import VideoPlayer from './components/VideoPlayer';
 
 export default function Page() {
+  const [videoCompleted, setVideoCompleted] = useState(false);
+
+  const handleVideoComplete = () => {
+    setVideoCompleted(true);
+  };
+
+  // Lock scroll until video is completed
+  useEffect(() => {
+    if (!videoCompleted) {
+      document.body.style.overflow = 'hidden';
+      // Scroll to top to ensure video is visible
+      window.scrollTo(0, 0);
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [videoCompleted]);
   return (
     <main className="min-h-screen bg-white">
       {/* Portada (Hero) */}
@@ -16,15 +40,32 @@ export default function Page() {
           </h1>
 
           {/* Video de YouTube */}
-          <div className="mb-8 max-w-4xl mx-auto">
-            <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
-              <VideoPlayer videoId="B3H8Hcua8tU" />
+          <div className="mb-8 max-w-6xl mx-auto">
+            <div className="relative w-full" style={{ paddingBottom: '50%' }}>
+              <VideoPlayer videoId="B3H8Hcua8tU" onVideoComplete={handleVideoComplete} />
             </div>
           </div>
 
           <p className="text-xl md:text-2xl text-neutral-100 mb-8 max-w-4xl mx-auto leading-relaxed">
             Construye una marca que inspira confianza, ordena tus finanzas diarias y vuelve predecible tu caja sin endeudarte.
           </p>
+
+          {/* Overlay de bloqueo hasta que termine el video */}
+          {!videoCompleted && (
+            <div className="fixed inset-0 bg-dark-600/95 backdrop-blur-sm z-50 flex items-center justify-center">
+              <div className="text-center text-neutral-50 max-w-md mx-4">
+                <div className="text-6xl mb-4">🔒</div>
+                <h2 className="text-2xl font-bold mb-4">Contenido Bloqueado</h2>
+                <p className="text-lg opacity-90 leading-relaxed">
+                  Completa el video para acceder al resto de la información y continuar con tu proceso de mentoría.
+                </p>
+                <div className="mt-6 text-sm opacity-75">
+                  El video se está reproduciendo arriba 👆
+                </div>
+              </div>
+            </div>
+          )}
+
           <div className="bg-neutral-50 rounded-xl p-6 shadow-lg mb-8 max-w-md mx-auto">
             <div className="text-2xl font-bold text-dark-600 mb-2">Mentoría 1:1 – 3 meses – USD $997</div>
           </div>
@@ -44,6 +85,10 @@ export default function Page() {
           </a>
         </div>
       </section>
+
+      {/* Contenido bloqueado hasta completar el video */}
+      {videoCompleted && (
+        <>
 
       {/* Sección Problema */}
       <section className="py-20 px-4 bg-neutral-50">
@@ -250,6 +295,9 @@ export default function Page() {
           </a>
         </div>
       </section>
+
+        </>
+      )}
     </main>
   );
 }
