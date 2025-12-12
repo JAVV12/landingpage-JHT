@@ -1,0 +1,8 @@
+# Redirect rules for Netlify deployment
+# This ensures that all routes are handled by Next.js
+
+# Handle client-side routing, return all requests to index.html
+/*    /index.html   200
+
+# Optional: Redirect HTTP to HTTPS (if not handled by netlify.toml)
+/*    https://:splat  301!
